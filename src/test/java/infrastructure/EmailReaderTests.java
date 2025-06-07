@@ -1,8 +1,8 @@
 package infrastructure;
 
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kahoot.infrastructure.EmailReader;
 
 import java.io.*;
 import java.util.List;
@@ -37,15 +37,16 @@ public class EmailReaderTests {
     }
 
     @Test
-    public void testSkipsEmptyLines() throws Exception {
-        String input = "\n\njohn@domain.com\n\n";
+    public void testStopsReadingAfterFirstEmptyLine() throws Exception {
+        String input = "jane@domain.com\n\njohn@domain.com\n";
         System.setIn(new ByteArrayInputStream(input.getBytes()));
 
         EmailReader reader = new EmailReader();
         List<String> emails = reader.readEmailsFromStdin();
 
+        // Should only contain the email before the first empty line
         assertEquals(1, emails.size());
-        assertEquals("john@domain.com", emails.get(0));
+        assertEquals("jane@domain.com", emails.get(0));
     }
 
     @Test

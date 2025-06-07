@@ -2,6 +2,7 @@ package application;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.kahoot.application.DomainCounterService;
 
 import java.util.*;
 import java.util.stream.Collectors;

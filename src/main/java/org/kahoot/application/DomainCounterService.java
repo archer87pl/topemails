@@ -1,7 +1,7 @@
-package application;
+package org.kahoot.application;
 
 
-import domain.Email;
+import org.kahoot.domain.Email;
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -16,7 +16,7 @@ public class DomainCounterService {
         try {
             Email email = new Email(rawInput);
             String domain = email.getDomain();
-            domainCounts.put(domain, domainCounts.getOrDefault(domain, 0) + 1);
+            domainCounts.merge(domain, 1, Integer::sum);
         } catch (IllegalArgumentException e) {
             System.err.println("Invalid email: " + rawInput);
         }

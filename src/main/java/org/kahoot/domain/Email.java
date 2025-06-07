@@ -1,4 +1,4 @@
-package domain;
+package org.kahoot.domain;
 
 import java.util.regex.Pattern;
 
@@ -19,7 +19,6 @@ public record Email(String value) {
 
     @Override
     public boolean equals(Object o) {
-        return (o instanceof Email other) && value.equals(other.value);
+        return (o instanceof Email(String value1)) && value.equals(value1);
     }
-
 }

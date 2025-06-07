@@ -1,7 +1,7 @@
 package org.kahoot;
 
-import application.DomainCounterService;
-import infrastructure.EmailReader;
+import org.kahoot.application.DomainCounterService;
+import org.kahoot.infrastructure.EmailReader;
 
 import java.util.*;
 

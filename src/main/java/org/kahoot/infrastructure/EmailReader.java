@@ -1,5 +1,4 @@
-package infrastructure;
-
+package org.kahoot.infrastructure;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,16 +8,17 @@ import java.util.List;
 
 public class EmailReader {
 
-   public List<String> readEmailsFromStdin() throws IOException {
+    public List<String> readEmailsFromStdin() throws IOException {
         List<String> emails = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         String line;
         while ((line = reader.readLine()) != null) {
             line = line.trim();
-            if (!line.isEmpty()) {
-                emails.add(line);
+            if (line.isEmpty()) {
+                break; // stop reading on empty line
             }
+            emails.add(line);
         }
 
         return emails;
