@@ -21,7 +21,6 @@ public class EmailReader {
             if (line.isEmpty()) {
                 break; // stop reading on empty line
             }
-            emails.add(line);
 
             if (line.length() > MAX_LINE_LENGTH) {
                 throw new IOException("Line too long (max " + MAX_LINE_LENGTH + " characters).");
