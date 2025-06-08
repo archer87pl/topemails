@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmailReader {
+    private static final int MAX_EMAILS = 1000000;
+    private static final int MAX_LINE_LENGTH = 254;
 
     public List<String> readEmailsFromStdin() throws IOException {
+
         List<String> emails = new ArrayList<>();
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -18,6 +21,16 @@ public class EmailReader {
             if (line.isEmpty()) {
                 break; // stop reading on empty line
             }
+            emails.add(line);
+
+            if (line.length() > MAX_LINE_LENGTH) {
+                throw new IOException("Line too long (max " + MAX_LINE_LENGTH + " characters).");
+            }
+
+            if (emails.size() >= MAX_EMAILS) {
+                throw new IOException("Too many emails (max " + MAX_EMAILS + ").");
+            }
+
             emails.add(line);
         }
 

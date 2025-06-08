@@ -58,4 +58,29 @@ public class EmailReaderTests {
 
         assertTrue(emails.isEmpty());
     }
+
+    @Test
+    void testMaxLineLengthExceeded() {
+        // Create a string longer than 254 characters
+        String longLine = "a".repeat(255) + "\n";
+        System.setIn(new ByteArrayInputStream(longLine.getBytes()));
+
+        EmailReader reader = new EmailReader();
+        IOException exception = assertThrows(IOException.class, reader::readEmailsFromStdin);
+        assertTrue(exception.getMessage().contains("Line too long"));
+    }
+
+    @Test
+    void testMaxEmailsExceeded() {
+        // 1001 valid email lines + 1 empty line to stop reading
+        StringBuilder input = new StringBuilder();
+        for (int i = 0; i <= 2000000; i++) {
+            input.append("user").append(i).append("@example.com\n");
+        }
+        System.setIn(new ByteArrayInputStream(input.toString().getBytes()));
+
+        EmailReader reader = new EmailReader();
+        IOException exception = assertThrows(IOException.class, reader::readEmailsFromStdin);
+        assertTrue(exception.getMessage().contains("Too many emails"));
+    }
 }
