@@ -33,7 +33,12 @@ public class DomainCounterServiceTests {
 
     @Test
     public void testProcessInvalidEmailsAreSkipped() {
-        service.processEmail("bad-email");
+        // Expect exception for invalid email
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.processEmail("bad-email");
+        });
+
+        // Valid email should be processed
         service.processEmail("valid@domain.com");
 
         List<Map.Entry<String, Integer>> top = service.getTopDomains(1);

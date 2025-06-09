@@ -12,14 +12,10 @@ public class DomainCounterService {
 
     private final Map<String, Integer> domainCounts = new HashMap<>();
 
-    public void processEmail(String rawInput) {
-        try {
-            Email email = new Email(rawInput);
-            String domain = email.getDomain();
-            domainCounts.merge(domain, 1, Integer::sum);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Invalid email: " + rawInput);
-        }
+    public void processEmail(String rawInput) throws IllegalArgumentException {
+        Email email = new Email(rawInput);
+        String domain = email.getDomain();
+        domainCounts.merge(domain, 1, Integer::sum);
     }
 
     public List<Map.Entry<String, Integer>> getTopDomains(int limit) {

@@ -12,7 +12,11 @@ public class Main {
         DomainCounterService service = new DomainCounterService();
 
         for (String emailLine : reader.readEmailsFromStdin()) {
-            service.processEmail(emailLine);
+            try {
+                service.processEmail(emailLine);
+            } catch (IllegalArgumentException e) {
+                System.err.println("Invalid email: " + emailLine);
+            }
         }
 
         List<Map.Entry<String, Integer>> topDomains = service.getTopDomains(10);
